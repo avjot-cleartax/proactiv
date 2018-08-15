@@ -43,7 +43,9 @@ echo "--------- " $cleartax_triggering_ref " --------"
 echo "--------- " $temporary_branch " -------"
 
 #remove any existing error log file
-rm $error_log_file
+if [ -f $error_log_file ]; then
+	rm $error_log_file
+fi
 
 cd $base_production_code_dir || die "Failed to go to directory $base_production_code_dir"
 
@@ -84,5 +86,5 @@ cd -
 cd $cleartax_repo || "Failed to go to $cleartax_repo"
 git checkout $cleartax_default_branch
 git branch -D $temporary_branch || "Failed to delete branch $cleartax_repo/$temporary_branch"
-
+read
 echo "The PR won't cause any conflicts with Taxcloud."
