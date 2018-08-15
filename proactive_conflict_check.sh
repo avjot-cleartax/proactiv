@@ -42,9 +42,7 @@ echo "----------" $temporary_branch "----------"
 echo "----------" $cleartax_triggering_ref "----------"
 
 #remove any existing error log file
-if [ -f $error_log_file ]; then
-	rm $error_log_file || die "Failed to delete error log file"
-fi
+rm "$error_log_file" || die "Failed to delete error log file"
 
 cd "$base_production_code_dir" || die "Failed to go to directory $base_production_code_dir"
 
