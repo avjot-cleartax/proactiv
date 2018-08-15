@@ -68,7 +68,7 @@ if [ `git branch --list $temporary_branch` ]
 then 
     git branch -D $temporary_branch ||"Failed to delete $cleartax_repo/$temporary_branch"
 fi
-git checkout -b $temporary_branch $cleartax_triggering_ref
+git checkout -b $temporary_branch
 
 #Merge the code of cleartax_triggering_branch into this branch
 git pull ../$cleartax_repo $temporary_branch --no-edit --log=10 || die_and_delete_temporary "The PR will cause conflicts with Taxcloud."
