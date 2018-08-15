@@ -25,7 +25,6 @@ function die_and_delete_temporary()
 	cd $cleartax_repo || "Failed to go to $cleartax_repo"
 	git checkout $cleartax_default_branch
 	git branch -D $temporary_branch || "Failed to delete branch $cleartax_repo/$temporary_branch"
-	read
     exit 1
 }
 
@@ -39,28 +38,25 @@ cleartax_default_branch="shipping"
 taxcloud_default_branch="taxcloud"
 temporary_branch="temporary_branch/$cleartax_triggering_ref"
 
-echo "--------- " $cleartax_triggering_ref " --------"
-echo "--------- " $temporary_branch " -------"
-
 #remove any existing error log file
 if [ -f $error_log_file ]; then
 	rm $error_log_file
 fi
 
-cd $base_production_code_dir || die "Failed to go to directory $base_production_code_dir"
+cd "$base_production_code_dir" || die "Failed to go to directory $base_production_code_dir"
 
 #Get the latest code for cleartax
-cd $cleartax_repo
+cd $cleartax_repo || die "Failed to go to $cleartax_repo"
 #revert any unstaged changes.
 git reset --hard HEAD || die "Failed to revert any unstaged changes in $cleartax_repo"
-git checkout $cleartax_default_branch
+git checkout $cleartax_default_branch || "Failed to go to $cleartax_default_branch" 
 git reset --hard HEAD || die "Failed to revert any unstaged changes in $cleartax_repo"
 git fetch https://github.com/avjot-cleartax/cleartax-dev.git
 if [ `git branch --list $temporary_branch` ]
 then 
     git branch -D $temporary_branch ||"Failed to delete $cleartax_repo/$temporary_branch"
 fi
-git checkout -b $temporary_branch $cleartax_triggering_ref
+git checkout -b $temporary_branch $cleartax_triggering_ref || "Failed to create temporary branch"
 cd -
 
 
@@ -86,5 +82,4 @@ cd -
 cd $cleartax_repo || "Failed to go to $cleartax_repo"
 git checkout $cleartax_default_branch
 git branch -D $temporary_branch || "Failed to delete branch $cleartax_repo/$temporary_branch"
-read
 echo "The PR won't cause any conflicts with Taxcloud."
