@@ -28,8 +28,8 @@ function die_and_delete_temporary()
     exit 1
 }
 
-base_production_code_dir="/c/users/administrator/proactiv/code"
-error_log_file="/c/users/administrator/proactiv/code/errorlogs/proactive_conflict_check_error.log"
+base_production_code_dir="/c/users/administrator/proactive/code"
+error_log_file="/c/users/administrator/proactive/code/errorlogs/proactive_conflict_check_error.log"
 
 cleartax_repo="cleartax-dev"
 taxcloud_repo="taxcloud-dev"
