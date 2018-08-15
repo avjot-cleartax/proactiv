@@ -4,7 +4,7 @@ function die()
 {
     echo "------ ERROR merge_cleartax_to_taxcloud.sh -----"
     echo $*
-    echo $* > $error_log_file
+    echo $* > "$error_log_file"
     echo "------ ERROR merge_cleartax_to_taxcloud.sh -----"
     echo "press enter to exit"
     exit 1
@@ -14,7 +14,7 @@ function die_and_delete_temporary()
 {
     echo "------ ERROR merge_cleartax_to_taxcloud.sh -----"
     echo $*
-    echo $* > $error_log_file
+    echo $* > "$error_log_file"
     echo "------ ERROR merge_cleartax_to_taxcloud.sh -----"
     echo "press enter to exit"
     
