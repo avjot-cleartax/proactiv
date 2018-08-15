@@ -4,7 +4,7 @@ function die()
 {
     echo "------ ERROR merge_cleartax_to_taxcloud.sh -----"
     echo $*
-    echo $* > "$error_log_file"
+    echo $* > $error_log_file
     echo "------ ERROR merge_cleartax_to_taxcloud.sh -----"
     echo "press enter to exit"
     exit 1
@@ -14,7 +14,7 @@ function die_and_delete_temporary()
 {
     echo "------ ERROR merge_cleartax_to_taxcloud.sh -----"
     echo $*
-    echo $* > "$error_log_file"
+    echo $* > $error_log_file
     echo "------ ERROR merge_cleartax_to_taxcloud.sh -----"
     echo "press enter to exit"
     
@@ -39,10 +39,9 @@ taxcloud_default_branch="taxcloud"
 temporary_branch="temporary_branch/$cleartax_triggering_ref"
 
 #remove any existing error log file
-if [ -f "$error_log_file" ]; then
-	rm "$error_log_file" || die "Failed to delete error log file"
-fi
-cd "$base_production_code_dir" || die "Failed to go to directory $base_production_code_dir"
+rm $error_log_file
+
+cd $base_production_code_dir || die "Failed to go to directory $base_production_code_dir"
 
 #Get the latest code for cleartax
 cd $cleartax_repo || die "Failed to go to $cleartax_repo"
@@ -56,7 +55,6 @@ if [ `git branch --list $temporary_branch` ]; then
 fi
 git checkout -b $temporary_branch $cleartax_triggering_ref || "Failed to create temporary branch"
 cd -
-
 
 #Get the latest code for taxcloud
 cd $taxcloud_repo || die "Failed to go to $taxcloud_repo"
