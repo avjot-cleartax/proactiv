@@ -25,6 +25,7 @@ function die_and_delete_temporary()
 	cd $cleartax_repo || "Failed to go to $cleartax_repo"
 	git checkout $cleartax_default_branch
 	git branch -D $temporary_branch || "Failed to delete branch $cleartax_repo/$temporary_branch"
+	read
     exit 1
 }
 
