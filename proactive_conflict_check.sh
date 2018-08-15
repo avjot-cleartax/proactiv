@@ -36,7 +36,10 @@ taxcloud_repo="taxcloud-dev"
 
 cleartax_default_branch="shipping"
 taxcloud_default_branch="taxcloud"
-temporary_branch="temporary_branch/$cleartax_triggering_branch"
+temporary_branch="temporary_branch/$cleartax_triggering_ref"
+
+echo "--------- " $cleartax_triggering_ref " --------"
+echo "--------- " $temporary_branch " -------"
 
 #remove any existing error log file
 rm $error_log_file
@@ -70,7 +73,7 @@ then
 fi
 git checkout -b $temporary_branch
 
-#Merge the code of cleartax_triggering_branch into this branch
+#Merge the code of cleartax_triggering_ref into this branch
 git pull ../$cleartax_repo $temporary_branch --no-edit --log=10 || die_and_delete_temporary "The PR will cause conflicts with Taxcloud."
 
 #Delete the temporary branches
