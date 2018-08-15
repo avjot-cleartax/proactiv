@@ -28,6 +28,7 @@ function die_and_delete_temporary()
     exit 1
 }
 
+echo entering the script > $log_file
 base_production_code_dir="/c/users/administrator/proactive/code"
 error_log_file="/c/users/administrator/proactive/code/errorlogs/proactive_conflict_check_error.log"
 log_file = "/c/users/administrator/proactive/code/errorlogs/proactive.log"
