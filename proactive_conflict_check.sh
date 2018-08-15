@@ -28,8 +28,8 @@ function die_and_delete_temporary()
     exit 1
 }
 
-base_production_code_dir="/c/users/avjot singh/proactiv/code"
-error_log_file="/c/users/avjot singh/proactiv/code/errorlogs/proactive_conflict_check_error.log"
+base_production_code_dir="/c/users/administrator/proactiv/code"
+error_log_file="/c/users/administrator/proactiv/code/errorlogs/proactive_conflict_check_error.log"
 
 cleartax_repo="cleartax-dev"
 taxcloud_repo="taxcloud-dev"
@@ -37,9 +37,6 @@ taxcloud_repo="taxcloud-dev"
 cleartax_default_branch="shipping"
 taxcloud_default_branch="taxcloud"
 temporary_branch="temporary_branch/$cleartax_triggering_ref"
-
-echo "----------" $temporary_branch "----------"
-echo "----------" $cleartax_triggering_ref "----------"
 
 #remove any existing error log file
 if [ -f "$error_log_file" ]; then
