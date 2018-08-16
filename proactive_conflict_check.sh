@@ -28,10 +28,10 @@ function die_and_delete_temporary()
     exit 1
 }
 
-echo entering the script > $log_file
 base_production_code_dir="/c/users/administrator/proactive/code"
 error_log_file="/c/users/administrator/proactive/code/errorlogs/proactive_conflict_check_error.log"
-log_file = "/c/users/administrator/proactive/code/errorlogs/proactive.log"
+log_file="/c/users/administrator/proactive/code/errorlogs/proactive.log"
+echo entering the script > $log_file
 
 cleartax_repo="cleartax-dev"
 taxcloud_repo="taxcloud-dev"
@@ -42,8 +42,9 @@ temporary_branch="temporary_branch/$cleartax_triggering_ref"
 
 #remove any existing error log file
 echo removing log file > $log_file
-rm $error_log_file
-
+if [ -f $error_log_file ]; then
+	rm $error_log_file
+fi
 echo going to base dir > $log_file
 cd $base_production_code_dir || die "Failed to go to directory $base_production_code_dir"
 
