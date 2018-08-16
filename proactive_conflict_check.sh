@@ -6,7 +6,6 @@ function die()
     echo $*
     echo $* > $error_log_file
     echo "------ ERROR merge_cleartax_to_taxcloud.sh -----"
-    echo "press enter to exit"
     exit 1
 }
 
@@ -16,7 +15,6 @@ function die_and_delete_temporary()
     echo $*
     echo $* > $error_log_file
     echo "------ ERROR merge_cleartax_to_taxcloud.sh -----"
-    echo "press enter to exit"
     
     #Delete the temporary branch
     git reset --hard HEAD
@@ -30,8 +28,6 @@ function die_and_delete_temporary()
 
 base_production_code_dir="/c/users/administrator/proactive/code"
 error_log_file="/c/users/administrator/proactive/code/errorlogs/proactive_conflict_check_error.log"
-log_file="/c/users/administrator/proactive/code/errorlogs/proactive.log"
-echo entering the script > $log_file
 
 cleartax_repo="cleartax-dev"
 taxcloud_repo="taxcloud-dev"
@@ -41,15 +37,13 @@ taxcloud_default_branch="taxcloud"
 temporary_branch="temporary_branch/$cleartax_triggering_ref"
 
 #remove any existing error log file
-echo removing log file > $log_file
 if [ -f $error_log_file ]; then
 	rm $error_log_file
 fi
-echo going to base dir > $log_file
+
 cd $base_production_code_dir || die "Failed to go to directory $base_production_code_dir"
 
 #Get the latest code for cleartax
-echo going to cleartax repo > $log_file
 cd $cleartax_repo || die "Failed to go to $cleartax_repo"
 #revert any unstaged changes.
 git reset --hard HEAD || die "Failed to revert any unstaged changes in $cleartax_repo"
@@ -63,7 +57,6 @@ git checkout -b $temporary_branch $cleartax_triggering_ref || "Failed to create 
 cd -
 
 #Get the latest code for taxcloud
-echo going to taxcloud repo > $log_file
 cd $taxcloud_repo || die "Failed to go to $taxcloud_repo"
 git reset --hard HEAD || die "Failed to revert any unstaged changes in $taxcloud_repo"
 git checkout $taxcloud_default_branch || die "Failed to go to branch $taxcloud_repo/$taxcloud_default_branch"
